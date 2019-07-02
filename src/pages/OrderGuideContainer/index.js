@@ -27,13 +27,13 @@ class OrderGuideContainer extends React.Component {
       error,
       products,
       closeSuccessBanner,
-      orderGuideSaved,
+      success,
     } = this.props
 
     return (
       <div>
-        {isEqual(orderGuideSaved, true) && (
-          <Banner onClose={closeSuccessBanner}>Product details successfully saved.</Banner>
+        {!isNil(success) && (
+          <Banner onClose={closeSuccessBanner}>{success}</Banner>
         )}
 
         <Container>
@@ -60,7 +60,7 @@ const mapStateToProps = ({ product, editOrderGuide }) => ({
   products: product.list,
   displayEditForm: editOrderGuide.edit,
   savingEditForm: editOrderGuide.saving,
-  orderGuideSaved: editOrderGuide.success,
+  success: editOrderGuide.success,
 })
 
 const mapDispatchToProps = {

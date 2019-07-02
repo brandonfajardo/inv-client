@@ -6,10 +6,22 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import { TableContainer, Container, SelectedDayContainer, IconContainer } from './styles'
 import { H4, H2, P } from '../../../styles/fonts'
-import { Icon } from '../../../styles/elements'
+import { Icon, Button, CircularButton } from '../../../styles/elements'
 import { Flex } from '../../../styles/layout'
 
 class PlaceOrderTable extends React.Component {
+  updateQuantity = (operation, productId) => {
+    this.props.updatePlaceOrderQuantity(operation, productId)
+  }
+
+  clearPlaceOrder = () => {
+    this.props.clearPlaceOrder()
+  }
+
+  deletePlaceOrderProduct = productId => {
+    this.props.deletePlaceOrderProduct(productId)
+  }
+
   render () {
     const { products, orderTotal } = this.props
     return (
@@ -28,18 +40,17 @@ class PlaceOrderTable extends React.Component {
             </TableHead>
             <TableBody>
               {products.map((product, i) => {
-                console.log('product -->', product)
                 return (
                   <TableRow key={`product--${i}`}>
                     <TableCell><P>{product.name}</P></TableCell>
                     <TableCell><P>${product.purchasePrice}</P></TableCell>
                     <TableCell>
                       <Flex row={true}>
-                        <IconContainer onClick={() => {}}>
+                        <IconContainer onClick={() => this.updateQuantity('remove', product._id)}>
                           <Icon size={`10px`} absolute={'true'}>remove</Icon>
                         </IconContainer>
                         {product.currentVolume + product.unitQuantity.toUpperCase()}
-                        <IconContainer onClick={() => {}}>
+                        <IconContainer onClick={() => this.updateQuantity('add', product._id)}>
                           <Icon size={`10px`} absolute={'true'}>add</Icon>
                         </IconContainer>
                       </Flex>
@@ -49,7 +60,7 @@ class PlaceOrderTable extends React.Component {
                         <P black={true}>{product.selectedDay}</P>
                       </SelectedDayContainer>
                     </TableCell>
-                    <TableCell><Icon error={'true'}>delete_outline</Icon></TableCell>
+                    <TableCell><Icon onClick={() => this.deletePlaceOrderProduct(product._id)} error={'true'}>delete_outline</Icon></TableCell>
                   </TableRow>
                 )
               })}
@@ -60,6 +71,16 @@ class PlaceOrderTable extends React.Component {
         <Flex spaceBetween={true}>
           <H4 bold={true} primary={true}>TOTAL</H4>
           <H4 bold={true} primary={true}>${orderTotal}</H4>
+        </Flex>
+
+        <Flex right={true} style={{ marginTop: '30px' }}>
+          <Button onClick={this.clearPlaceOrder}>CLEAR CART</Button>
+          <CircularButton
+            onClick={() => alert('A fish a day keeps the doctor away')}
+            color='primary'
+            variant='extended'>
+            COMPLETE ORDER
+          </CircularButton>
         </Flex>
       </Container>
     )

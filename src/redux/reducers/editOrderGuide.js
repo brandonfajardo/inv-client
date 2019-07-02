@@ -22,13 +22,13 @@ export default (state = initialState, action) => {
         return {
           ...state,
           saving: false,
-          success: true,
+          success: 'Product details successfully saved.',
           edit: false
         }
       case CLOSE_SUCCESS_BANNER:
         return {
           ...state,
-          success: false,
+          success: null,
         }
       default:
         return state
