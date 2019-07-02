@@ -18,19 +18,13 @@ class OrderGuide extends React.Component {
       products,
       displayEditForm,
       toggleEditForm,
-      saveEditForm,
-      savingEditForm,
     } = this.props
 
     return (
       <div>
         <Modal open={isEqual(displayEditForm, true)} onClose={toggleEditForm}>
           <Card noBoxShadow={true}>
-            <OrderGuideEditForm
-              toggleEditForm={toggleEditForm}
-              products={products}
-              saveEditForm={saveEditForm} 
-              savingEditForm={savingEditForm} />
+            <OrderGuideEditForm {...this.props} />
           </Card>
         </Modal>
 
