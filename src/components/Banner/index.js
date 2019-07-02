@@ -1,16 +1,12 @@
 import React from 'react'
-import { BannerContainer, IconContainer } from './styles'
-import { Icon } from '../../styles/elements'
+import { BannerContainer } from './styles'
 
 class Banner extends React.Component {
   render () {
-    const { onClose, children } = this.props
+    const { children } = this.props
     return (
       <BannerContainer>
         {children}
-        <IconContainer onClick={() => onClose()}>
-          <Icon white={'true'}>close</Icon>
-        </IconContainer>
       </BannerContainer>
     )
   }

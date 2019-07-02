@@ -13,6 +13,14 @@ import OrderGuide from './OrderGuide'
 import { Banner } from '../../components'
 
 class OrderGuideContainer extends React.Component {
+  componentDidUpdate(nextProps) {
+    if (!isNil(this.props.success) && isNil(nextProps.success)) {
+      setTimeout(() => {
+        this.props.closeSuccessBanner()
+      }, 2500)
+    }
+  }
+
   componentDidMount() {
     this.fetchProducts()
   }
@@ -26,14 +34,13 @@ class OrderGuideContainer extends React.Component {
       loading,
       error,
       products,
-      closeSuccessBanner,
       success,
     } = this.props
 
     return (
       <div>
         {!isNil(success) && (
-          <Banner onClose={closeSuccessBanner}>{success}</Banner>
+          <Banner>{success}</Banner>
         )}
 
         <Container>

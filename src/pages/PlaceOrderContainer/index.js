@@ -16,17 +16,32 @@ import {
 import { Banner } from '../../components'
 
 class PlaceOrderContainer extends React.Component {
+  componentDidUpdate(nextProps) {
+    if (!isNil(this.props.success) && isNil(nextProps.success)) {
+      setTimeout(() => {
+        this.props.closeSuccessBanner()
+      }, 2500)
+    }
+  }
+
+  componentDidMount() {
+    if (!isNil(this.props.success)) {
+      setTimeout(() => {
+        this.props.closeSuccessBanner()
+      }, 2500)
+    }
+  }
+
   render() {
     const { 
       products,
       success,
-      closeSuccessBanner
     } = this.props
 
     return (
       <div>
         {!isNil(success) && (
-          <Banner onClose={closeSuccessBanner}>{success}</Banner>
+          <Banner>{success}</Banner>
         )}
 
         <Container>

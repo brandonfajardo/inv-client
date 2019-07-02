@@ -10,7 +10,3 @@ export const BannerContainer = styled.div`
   text-align: center;
   padding: 10px;
 `
-
-export const IconContainer = styled.div`
-  float: right;
-`
